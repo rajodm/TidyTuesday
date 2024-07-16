@@ -186,7 +186,7 @@ title <- title_text |>
     aes(label = label),
     box.color = bg_color, fill = bg_color, color = "#001489",
     family = text_font,
-    width = unit(18, "line"), size = 14, lineheight = 1.2,
+    width = unit(22, "line"), size = 13, lineheight = 1.2,
   ) +
   coord_cartesian(expand = FALSE, clip = "off") +
   theme_void() +

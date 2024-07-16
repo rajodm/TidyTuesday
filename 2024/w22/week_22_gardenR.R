@@ -35,11 +35,11 @@ green <- "palegreen4"
 data <- str_glue("**Data**: Lisa's Vegetable garden, {{gardenR}}")
 chart <- str_glue("**#TidyTuesday** 2024 Week 22 | {data}")
 X_ic <- str_glue("<span style='font-family:fa6-brands'>&#xe61b;</span>")
-autor <- str_glue("**Graphic**: {X_ic} @AndriambeloRajo ")
+author <- str_glue("**Graphic**: {X_ic} @AndriambeloRajo ")
 
 
 title_text <- "Lisa Lendway's vegetable garden"
-caption_text <- str_glue("{chart} <br> {autor} | #Rstats")
+caption_text <- str_glue("{chart} <br> {author} | #Rstats")
 
 
 # Harvest ----------------------------------------------------------

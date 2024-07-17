@@ -163,7 +163,7 @@ chart <- glue("**#TidyTuesday**: 2024 Week 29 | {data}")
 X_ic <- glue("<span style='font-family:fa6-brands'>&#xe61b;</span>")
 author <- glue("**Graphic**: {X_ic} @AndriambeloRajo ")
 
-caption_text <- glue("{chart} <br> {author} | #Rstats")
+caption_text <- glue("{chart} | {author} | #Rstats")
 
 # Title and subtitle
 title_text <- tibble(
@@ -173,9 +173,10 @@ title_text <- tibble(
 
 sub_text <- tibble(
   x = 0, y = 0,
-  label = "This chart shows the monthly evolution of the 13th Women\\'s Super League Ranking.<br>In case of a tie, the rules for the ranking are as follows:<br>1) Points, 2) Goal difference, 3) Number of goals scored."
+  label = "The **Women\\'s Super League (WSL)** is the highest league of women's football in England.<br>This chart shows the **monthly** evolution of the **13th WSL standing**. The numbers are the points earned based on their match results for each month."
 )
 
+annotation <- "Points awareded: 3 pts for a win, 1 pts for a draw, 0 pts for a loss.<br>In case of a tie, the rules for the ranking are as follows:<br>1) Points, 2) Goal difference, 3) Number of goals scored."
 
 # Chart ------------------------------------------------------------------
 
@@ -184,9 +185,13 @@ title <- title_text |>
   ggplot(aes(x = x, y = y)) +
   geom_textbox(
     aes(label = label),
-    box.color = bg_color, fill = bg_color, color = "#001489",
+    box.color = bg_color,
+    fill = bg_color,
+    color = "#001489",
     family = text_font,
-    width = unit(22, "line"), size = 13, lineheight = 1.2,
+    width = unit(22, "line"),
+    size = 13,
+    lineheight = 1.2,
   ) +
   coord_cartesian(expand = FALSE, clip = "off") +
   theme_void() +
@@ -198,9 +203,13 @@ subtitle <- sub_text |>
   ggplot(aes(x = x, y = y)) +
   geom_textbox(
     aes(label = label),
-    box.color = bg_color, fill = bg_color, color = "#132257",
+    box.color = bg_color,
+    fill = bg_color,
+    color = "#132257",
     family = text_font,
-    width = unit(14, "line"), size = 4.9, lineheight = 1.5
+    width = unit(17, "line"),
+    size = 4.9,
+    lineheight = 1.5
   ) +
   coord_cartesian(expand = FALSE, clip = "off") +
   theme_void() +
@@ -212,24 +221,38 @@ plot <- rank_wsl_23 |>
   ggplot(aes(x = period_month, y = rank)) +
   geom_bump(
     aes(group = team_name, color = team_name),
-    linewidth = 8, show.legend = FALSE, smooth = 9, alpha = 0.85
+    linewidth = 8,
+    smooth = 9,
+    alpha = 0.85,
+    show.legend = FALSE
   ) +
   geom_label(
     aes(x = period_month, y = rank, label = points, color = team_name),
-    size = 4.65,
-    alpha = 0.9,
+    size = 4.45,
+    alpha = 0.85,
     show.legend = FALSE
   ) +
-  geom_image(data = m1_rank, aes(x = 0.5, y = rank, group = team_name, image = logo), size = 0.05, asp = 1) +
-  geom_image(data = m8_rank, aes(x = 8.5, y = rank, group = team_name, image = logo), size = 0.05, asp = 1) +
-  scale_color_manual(values = c(
+  geom_image(
+    data = m1_rank,
+    aes(x = 0.5, y = rank, group = team_name, image = logo),
+    size = 0.05,
+    asp = 1
+  ) +
+  geom_image(
+    data = m8_rank,
+    aes(x = 8.5, y = rank, group = team_name, image = logo),
+    size = 0.05,
+    asp = 1
+  ) +
+  scale_color_manual(
+    values = c(
     "#db0007", "#93bde4", "#005daa",
     "#e21a23", "#001489", "#00009e",
     "#fdbe11", "#bb0216", "#6caddf",
     "#da020e", "#132257", "#7c2c3b"
   )) +
   labs(
-    caption = caption_text
+    caption = annotation
   ) +
   scale_x_discrete(
     expand = c(0.1, 0.1),
@@ -244,18 +267,23 @@ plot <- rank_wsl_23 |>
     plot.background = element_rect(color = bg_color, fill = bg_color),
     panel.background = element_rect(color = bg_color, fill = bg_color),
     plot.caption = element_markdown(
-      family = caption_font,
-      color = "#1e3442",
+      family = text_font,
+      color = "#132257",
       hjust = 0.0,
       lineheight = 1.2,
       size = 9,
-      margin = margin(t = 10, b = 0)
+      margin = margin(t = 0, b = 0)
     ),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
     axis.title = element_blank(),
     axis.text.x = element_blank(),
-    axis.text.y = element_text(family = text_font, size = 14, face = "bold")
+    axis.text.y = element_text(
+      family = text_font,
+      size = 14,
+      face = "bold",
+      color = "#132257"
+    )
   )
 
 
@@ -266,7 +294,15 @@ final_plot <- (title + subtitle) / plot +
   plot_annotation(
     theme = theme(
       plot.background = element_rect(color = bg_color, fill = bg_color),
-      plot.margin = margin(t = 20, r = 20, b = 15, l = 20)
+      plot.margin = margin(t = 20, r = 15, b = 10, l = 15),
+      plot.caption = element_markdown(
+      family = caption_font,
+      color = "#1e3442",
+      hjust = 0.5,
+      lineheight = 1.2,
+      size = 9,
+      margin = margin(t = 10, b = 0)
+    ),
     )
   )
 

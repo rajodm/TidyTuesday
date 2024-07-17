@@ -176,7 +176,7 @@ sub_text <- tibble(
   label = "The **Women\\'s Super League (WSL)** is the highest league of women's football in England.<br>This chart shows the **monthly** evolution of the **13th WSL standing**. The numbers are the points earned based on their match results for each month."
 )
 
-annotation <- "Points awareded: 3 pts for a win, 1 pts for a draw, 0 pts for a loss.<br>In case of a tie, the rules for the ranking are as follows:<br>1) Points, 2) Goal difference, 3) Number of goals scored."
+annotation <- "Points awarded: 3 pts for a win, 1 pt for a draw, 0 pt for a loss.<br>In case of a tie, the rules for the ranking are as follows:<br>1) Points, 2) Goal difference, 3) Number of goals scored."
 
 # Chart ------------------------------------------------------------------
 

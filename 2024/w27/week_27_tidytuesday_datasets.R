@@ -57,7 +57,7 @@ font_plt <- "spaceG"
 
 
 # Font Awesome
-font_add("fa6-brands", "w27/fonts/Font Awesome 6 Brands-Regular-400.otf")
+font_add("fa6-brands", "fonts/Font Awesome 6 Brands-Regular-400.otf")
 
 
 # Colors

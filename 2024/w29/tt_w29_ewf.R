@@ -222,7 +222,7 @@ plot <- rank_wsl_23 |>
   geom_bump(
     aes(group = team_name, color = team_name),
     linewidth = 8,
-    smooth = 9,
+    smooth = 8,
     alpha = 0.85,
     show.legend = FALSE
   ) +
@@ -246,10 +246,10 @@ plot <- rank_wsl_23 |>
   ) +
   scale_color_manual(
     values = c(
-    "#db0007", "#93bde4", "#005daa",
+    "#ef0107", "#93bde4", "#005daa",
     "#e21a23", "#001489", "#00009e",
     "#fdbe11", "#bb0216", "#6caddf",
-    "#da020e", "#132257", "#7c2c3b"
+    "#d8020e", "#132257", "#7c2c3b"
   )) +
   labs(
     caption = annotation

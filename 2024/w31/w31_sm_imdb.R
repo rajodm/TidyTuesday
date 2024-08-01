@@ -28,27 +28,6 @@ sm_blue <- "#3fbcf6"
 sm_bg_dark <- "#14171c"
 sm_grey <- "#d4d4d4"
 
-# Texts ------------------------------------------------------------------
-
-
-main_title_text <- glue::glue("<span style ='font-family: Lora; font-size: 26pt'>**Rating of Popular Summer\\* Movies**</span>")
-main_subtitle_text <- glue::glue("<span style = 'font-family: Poppins; font-size: 8pt'>\\*Movies with the word \\'summer\\' in their title</span>")
-
-
-title_text <- tribble(
-  ~x, ~y, ~label,
-  -7.5, 10, main_title_text,
-  -7.5, 8.5, main_subtitle_text
-)
-
-
-description_text <- glue::glue(
-  "<span style = 'font-family: Poppins; font-size: 10pt'>This chart shows the **most popular movies** (by number of votes) on IMDb with the word \\'summer\\' in the title.<br>There are **226 movies** with a **rating of 2.6 or higher** by IMDb users. They are **arranged by year of release** from 1935 to 2024.<br>The **colors** are their **categorie** and brighter lines are more popular movies: <br>- <span style = 'color: {sm_green}; font-family: Lora'>**great movies**</span> (rating > 6.4),<br>- <span style = 'color: {sm_orange}; font-family: Lora'>**good movies**</span> (rating > 5.6),<br>- <span style = 'color: {sm_blue}; font-family: Lora'>**average - bad movies**</span> (rating ≤ 5.6).<br><br>The Labels show the five most popular movies by number of votes (IMDb), along with the movie descriptions.<br><span style = ' font-family: Poppins; font-size: 8pt'>Theme inspiration:</span><span style = 'color: {sm_green}; font-family: Poppins; font-size: 8pt'>#Letterboxd</span></span>"
-)
-
-plot_description <- tibble(
-  x = 0, y = 0, label = description_text
-)
 
 # Caption ----------------------------------------------------------------
 
@@ -80,13 +59,13 @@ normalize <- function(x) {
   return((x - min(x)) / (max(x) - min(x)))
 }
 
+as_breaks <- normalize(c(5649, 11298, 16947, 28245, 45192, 73437, 118629, 192066, 310695, 502761))
 
 # Data Preparation -------------------------------------------------------
 
 
 # filter and categories
 summer_movies <- summer_movies |>
-  # title_type == "movie" &
   filter(num_votes > votes$numeric.p75) |>
   mutate(
     rating_cat = case_when(
@@ -115,6 +94,29 @@ popular_sm <- summer_movies |>
     num = row_number()
   )
 
+
+# Texts ------------------------------------------------------------------
+
+
+main_title_text <- glue::glue("<span style ='font-family: Lora; font-size: 26pt'>**Rating of Popular Summer Movies\\***</span>")
+main_subtitle_text <- glue::glue("<span style = 'font-family: Poppins; font-size: 8pt'>\\*Movies with the word \\'summer\\' in the title</span>")
+
+
+
+title_text <- tribble(
+  ~x, ~y, ~label,
+  -7.5, 10, main_title_text,
+  -7.5, 8.5, main_subtitle_text
+)
+
+
+description_text <- glue::glue(
+  "<span style = 'font-family: Poppins; font-size: 11pt'>This chart shows the **most popular movies** (by number of votes) on IMDb with the word \\'summer\\' in the title.<br>There are **{length(summer_movies$tconst)} movies** with **at least {votes$numeric.p75} votes**. They are **arranged by year of release** from 1935 to 2024.<br>The **colors** are their **categorie** and more popular movies are represented with a brighter line:<br>- <span style = 'color: {sm_green}; font-family: Lora'>**great movies**</span> (rating > {ratings$numeric.p75}),<br>- <span style = 'color: {sm_orange}; font-family: Lora'>**good movies**</span> (rating ≥ {ratings$numeric.p25}),<br>- <span style = 'color: {sm_blue}; font-family: Lora'>**average - bad movies**</span> (rating < {ratings$numeric.p25}).<br><br>The Labels show the five most popular movies by number of votes, along with the movie descriptions.<br><span style = ' font-family: Poppins; font-size: 8pt'>Theme inspiration:</span><span style = 'color: {sm_green}; font-family: Poppins; font-size: 8pt'>#Letterboxd</span></span>"
+)
+
+plot_description <- tibble(
+  x = 0, y = 0, label = description_text
+)
 
 # Plots ------------------------------------------------------------------
 
@@ -203,9 +205,9 @@ main_plot <- summer_movies |>
   data = summer_movies_rating,
   aes(yintercept = score),
   color = sm_grey,
-  linewidth = 0.3,
+  linewidth = 0.2,
   linetype = "dashed",
-  alpha = 0.15
+  alpha = 0.4
   ) +
   # Yaxis Labels
   geom_richtext(
@@ -230,10 +232,10 @@ main_plot <- summer_movies |>
   ) +
   scale_color_manual(values = c(sm_blue, sm_orange,sm_green)) +
   scale_size_binned(
-    n.breaks = 10,
+    breaks = as_breaks
   ) +
   scale_alpha_binned(
-    n.breaks = 10,
+    breaks = as_breaks
   ) +
   theme_void() +
   theme(

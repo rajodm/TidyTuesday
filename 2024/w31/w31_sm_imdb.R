@@ -1,4 +1,3 @@
-
 # packages ---------------------------------------------------------------
 
 
@@ -27,6 +26,7 @@ sm_orange <- "#ff7f02"
 sm_blue <- "#3fbcf6"
 sm_bg_dark <- "#14171c"
 sm_grey <- "#d4d4d4"
+sm_blue_grey <- "#445565"
 
 
 # Caption ----------------------------------------------------------------
@@ -82,7 +82,7 @@ summer_movies <- summer_movies |>
     yearly_num = row_number(),
     tconst = fct_reorder(tconst, yearly_num),
     norm_votes = normalize(num_votes),
-    genres = str_replace_all(genres, ",",", ")
+    genres = str_replace_all(genres, ",", ", ")
   )
 
 
@@ -167,7 +167,8 @@ main_plot <- summer_movies |>
   # Label for the most popular movies
   geom_textbox(
     data = popular_sm,
-    aes(x = tconst, y = average_rating,
+    aes(
+      x = tconst, y = average_rating,
       label = glue::glue(
         "<span style ='font-family: Lora; font-size: 12.2pt'>**{num}. {original_title}**</span> ",
         "<span style = 'font-family: Poppins; font-size: 10pt'><br>{genres}</span><br>",
@@ -190,7 +191,7 @@ main_plot <- summer_movies |>
   # Adding arrows pointing to the labels
   geom_arrow_segment(
     data = popular_sm,
-    aes(x = tconst, y = average_rating + 0.3,yend = average_rating + 6.2),
+    aes(x = tconst, y = average_rating + 0.3, yend = average_rating + 6.2),
     arrow_fins = arrow_fins_minimal(),
     arrow_head = arrow_cup(),
     color = sm_grey,
@@ -198,16 +199,16 @@ main_plot <- summer_movies |>
     show.legend = FALSE
   ) +
   scale_y_continuous(
-    expand = c(0,0)
+    expand = c(0, 0)
   ) +
   # Yaxis lines
   geom_hline(
-  data = summer_movies_rating,
-  aes(yintercept = score),
-  color = sm_grey,
-  linewidth = 0.2,
-  linetype = "dashed",
-  alpha = 0.4
+    data = summer_movies_rating,
+    aes(yintercept = score),
+    color = sm_grey,
+    linewidth = 0.2,
+    linetype = "dashed",
+    alpha = 0.4
   ) +
   # Yaxis Labels
   geom_richtext(
@@ -230,7 +231,7 @@ main_plot <- summer_movies |>
   scale_x_discrete(
     expand = c(0.04, 0.04)
   ) +
-  scale_color_manual(values = c(sm_blue, sm_orange,sm_green)) +
+  scale_color_manual(values = c(sm_blue, sm_orange, sm_green)) +
   scale_size_binned(
     breaks = as_breaks
   ) +
@@ -245,10 +246,60 @@ main_plot <- summer_movies |>
 
 
 
+# Frequent movie genres
+sm_genres <- summer_movies |>
+  separate_longer_delim(genres, delim = ", ") |>
+  group_by(genres) |>
+  summarise(
+    n = n(),
+  ) |>
+  arrange(desc(n)) |>
+  # Pick the 3 most frequent movie genres
+  slice_head(n = 3) |>
+  ggplot(aes(y = reorder(genres, n), x = n)) +
+  geom_bar(stat = "identity", color = sm_blue_grey, fill = sm_blue_grey) +
+  labs(
+    title = glue::glue(
+      "<span style = 'font-size: 11pt'>Frequent</span> ",
+      "<span style = 'font-size: 11pt'>movie genres</span>"
+    ),
+  ) +
+  geom_richtext(
+    aes(x = 1, label = glue::glue("<span style = 'font-family: Poppins; font-size: 9pt'>{genres}</span>")),
+    hjust = 0,
+    fill = NA,
+    label.color = NA,
+    fontface = "bold",
+    color = sm_grey
+  ) +
+  geom_richtext(
+    aes(label = glue::glue("<span style = 'font-family: Poppins; font-size: 9pt'>{n}</span>")),
+    hjust = 1.2,
+    fill = NA,
+    label.color = NA,
+    color = sm_grey
+  ) +
+  scale_x_continuous(
+    expand = c(0, 0)
+  ) +
+  theme_void() +
+  theme(
+    plot.background = element_rect(color = sm_bg_dark, fill = sm_bg_dark),
+    panel.background = element_rect(color = sm_bg_dark, fill = sm_bg_dark),
+    legend.position = "none",
+    plot.title.position = "plot",
+    plot.title = element_markdown(
+      color = sm_grey,
+      family = title_fonts,
+      lineheight = 1.5,
+    ),
+  )
+
+
 # Final plot
-final_plot <- main_plot + side_text +
+final_plot <- (main_plot + side_plot) +
   plot_layout(
-    widths = c(3,1)
+    widths = c(3, 1),
   ) +
   plot_annotation(
     caption = caption_text,
@@ -263,6 +314,11 @@ final_plot <- main_plot + side_text +
         margin = margin(b = 10)
       )
     )
+  ) +
+  inset_element(
+    sm_genres,
+    left = 0, bottom = 0.05, right = 1, top = 0.23,
+    align_to = "full"
   )
 
 

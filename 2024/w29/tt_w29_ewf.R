@@ -246,11 +246,12 @@ plot <- rank_wsl_23 |>
   ) +
   scale_color_manual(
     values = c(
-    "#ef0107", "#93bde4", "#005daa",
-    "#e21a23", "#001489", "#00009e",
-    "#fdbe11", "#bb0216", "#6caddf",
-    "#d8020e", "#132257", "#7c2c3b"
-  )) +
+      "#ef0107", "#93bde4", "#005daa",
+      "#e21a23", "#001489", "#00009e",
+      "#fdbe11", "#bb0216", "#6caddf",
+      "#d8020e", "#132257", "#7c2c3b"
+    )
+  ) +
   labs(
     caption = annotation
   ) +
@@ -296,13 +297,13 @@ final_plot <- (title + subtitle) / plot +
       plot.background = element_rect(color = bg_color, fill = bg_color),
       plot.margin = margin(t = 20, r = 15, b = 10, l = 15),
       plot.caption = element_markdown(
-      family = caption_font,
-      color = "#1e3442",
-      hjust = 0.5,
-      lineheight = 1.2,
-      size = 9,
-      margin = margin(t = 10, b = 0)
-    ),
+        family = caption_font,
+        color = "#1e3442",
+        hjust = 0.5,
+        lineheight = 1.2,
+        size = 9,
+        margin = margin(t = 10, b = 0)
+      ),
     )
   )
 

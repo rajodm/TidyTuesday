@@ -11,7 +11,7 @@ library(showtext)
 # Data -------------------------------------------------------------------
 
 
-movies <- readxl::read_xlsx(here::here("project/tt2025_w1/data/movies.xlsx")) |>
+movies <- readxl::read_xlsx(here::here("data/movies24.xlsx")) |>
   janitor::clean_names() |>
   mutate(month = month(log, label = TRUE)) |>
   select(!log)
@@ -243,7 +243,7 @@ final_plot <- (movies_by_numbers / main_plot)+
   )
 
 ggsave(
-  "year_in_movies.png",
+  "2025_w01-year_in_movies.png",
   final_plot,
   width = 21,
   height = 29.7,

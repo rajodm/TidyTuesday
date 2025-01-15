@@ -75,17 +75,16 @@ bar_plot_title <- "A Year Full of Drama... and Comedy"
 
 
 color_bg <- "#f8f4ed"
-color_main <- "#2d3542"
+color_main <- "#1d2432"
 color_grey <- "#8e8e8e"
 bar_plot_colors <- c(
   Other = color_main,
-  Drama = "#9b4d6c",
-  Comedy = "#d4804a",
-  # Animation = "#2c8495",
-  # Adventure = "#5f8547"
-  Animation = "#207891",
-  Adventure = "#557847"
+  Drama = "#8e3147",
+  Comedy = "#d86f3d",
+  Animation = "#2b7da1",
+  Adventure = "#82a357"
 )
+
 
 # Movie Stats ------------------------------------------------------------
 

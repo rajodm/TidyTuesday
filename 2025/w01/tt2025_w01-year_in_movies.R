@@ -80,9 +80,9 @@ color_grey <- "#8e8e8e"
 bar_plot_colors <- c(
   Other = color_main,
   Drama = "#8e3147",
-  Comedy = "#d86f3d",
-  Animation = "#2b7da1",
-  Adventure = "#82a357"
+  Comedy = "#b35124",
+  Animation = "#3d9bd8",
+  Adventure = "#90b346"
 )
 
 

@@ -197,10 +197,12 @@ final_plot <- p +
       x = min(year) - 3,
       y = min(avg_runtime),
       y0 = 97,
-      label = "Avegrage runtime per decade"
+      label = "Average runtime per decade"
     ),
     colour = "transparent",
     label.fontface = "plain",
+    label.family = "montserrat",
+    label.fontsize = 11,
     label.fill = color_white,
     label.colour = color_black,
     con.colour = colorspace::lighten(color_black, 0.2),
@@ -217,11 +219,13 @@ final_plot <- p +
       y0 = run_time,
       label = glue::glue(
         "Longest Movie:\n",
-        "Title: {film} ({year})\n",
+        "{film} ({year})\n",
         "Runtime: {run_time} min"
       ),
     ),
     label.fontface = "plain",
+    label.family = "montserrat",
+    label.fontsize = 11,
     label.fill = color_white,
     label.colour = color_black,
     con.colour = colorspace::lighten(color_black, 0.2),
@@ -240,11 +244,13 @@ final_plot <- p +
       x0 = 2018,
       label = glue::glue(
         "Last movie rated 'G':\n",
-        "Title: {film} ({year})\n",
+        "{film} ({year})\n",
         "Runtime: {run_time} min"
       ),
     ),
     label.fontface = "plain",
+    label.family = "montserrat",
+    label.fontsize = 11,
     label.fill = color_white,
     label.colour = color_black,
     con.colour = colorspace::lighten(color_black, 0.2),

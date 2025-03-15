@@ -152,7 +152,7 @@ p <- plot_data |>
     plot.title = element_textbox_simple(
       size = 22,
       face = "bold",
-      margin = margin(t = 10, b = 12)
+      margin = margin(t = 10, b = 18)
     ),
     panel.grid = element_line(
       color = colorspace::lighten(color_black, 0.9),
@@ -160,7 +160,7 @@ p <- plot_data |>
     ),
     panel.grid.minor = element_blank(),
     legend.position = "inside",
-    legend.position.inside = c(0.15, 0.8),
+    legend.position.inside = c(0.15, 0.9),
     legend.key.spacing.y = unit(2.8, "mm"),
     legend.background = element_rect(
       fill = color_white,
@@ -197,7 +197,7 @@ final_plot <- p +
       x = min(year) - 3,
       y = min(avg_runtime),
       y0 = 97,
-      label = "Avegrage rating per decade"
+      label = "Avegrage runtime per decade"
     ),
     colour = "transparent",
     label.fontface = "plain",

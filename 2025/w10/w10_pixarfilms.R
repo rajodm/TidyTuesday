@@ -152,7 +152,7 @@ p <- plot_data |>
     plot.title = element_textbox_simple(
       size = 22,
       face = "bold",
-      margin = margin(t = 10, b = 18)
+      margin = margin(t = 8, b = 24)
     ),
     panel.grid = element_line(
       color = colorspace::lighten(color_black, 0.9),
@@ -172,19 +172,50 @@ p <- plot_data |>
       margin = margin(b = 8)
     ),
     legend.text = element_markdown(size = 12, lineheight = 1),
-    axis.title = element_text(color = colorspace::lighten(color_black, 0.3)),
-    axis.text = element_text(color = colorspace::lighten(color_black, 0.3)),
+    axis.title = element_text(
+      color = colorspace::lighten(color_black, 0.3),
+      size = 13
+    ),
+    axis.text = element_text(
+      color = colorspace::lighten(color_black, 0.3),
+      size = 11
+    ),
     axis.title.x = element_blank(),
-    plot.margin = margin(t = 20, r = 20, b = 10, l = 20),
+    plot.margin = margin(t = 20, r = 20, b = 12, l = 20),
     plot.caption.position = "plot",
     plot.caption = element_markdown(
       color = color_black,
       hjust = 0,
       lineheight = 1.2,
-      size = 8
+      size = 8,
+      margin = margin(t = 12)
     )
   )
 
+circle_mark <- function(data, title = "", x0 = NA, y0 = NA) {
+  geom_mark_circle(
+    data = data,
+    aes(
+      x = year,
+      y = run_time,
+      y0 = if_else(is.na(y0), run_time, y0),
+      x0 = if_else(is.na(x0), year, x0),
+      label = glue::glue(
+        "{title}:\n",
+        "{film} ({year})\n",
+        "Runtime: {run_time} min"
+      )
+    ),
+    label.fontface = "plain",
+    label.family = "montserrat",
+    label.fontsize = 11,
+    label.fill = color_white,
+    label.colour = color_black,
+    con.colour = colorspace::lighten(color_black, 0.2),
+    colour = colorspace::lighten(color_black, 0.2),
+    con.cap = 12
+  )
+}
 
 final_plot <- p +
   geom_mark_circle(
@@ -194,8 +225,8 @@ final_plot <- p +
           run_time == min(run_time)
       ),
     aes(
-      x = min(year) - 3,
-      y = min(avg_runtime),
+      x = year - 3,
+      y = avg_runtime,
       y0 = 97,
       label = "Average runtime per decade"
     ),
@@ -209,53 +240,20 @@ final_plot <- p +
     expand = 0,
     con.cap = 0
   ) +
-  geom_mark_circle(
+  circle_mark(
     data = plot_data |>
       filter(run_time == max(run_time)),
-    aes(
-      x = year,
-      x0 = 2022,
-      y = run_time,
-      y0 = run_time,
-      label = glue::glue(
-        "Longest Movie:\n",
-        "{film} ({year})\n",
-        "Runtime: {run_time} min"
-      ),
-    ),
-    label.fontface = "plain",
-    label.family = "montserrat",
-    label.fontsize = 11,
-    label.fill = color_white,
-    label.colour = color_black,
-    con.colour = colorspace::lighten(color_black, 0.2),
-    colour = colorspace::lighten(color_black, 0.2),
-    con.cap = 12
+    x0 = 2022,
+    title = "Longest Movie"
   ) +
-  geom_mark_circle(
+  circle_mark(
     data = plot_data |>
       filter(film_rating == "G") |>
       arrange(desc(year)) |>
       slice(1),
-    aes(
-      x = year,
-      y = run_time,
-      y0 = 87,
-      x0 = 2018,
-      label = glue::glue(
-        "Last movie rated 'G':\n",
-        "{film} ({year})\n",
-        "Runtime: {run_time} min"
-      ),
-    ),
-    label.fontface = "plain",
-    label.family = "montserrat",
-    label.fontsize = 11,
-    label.fill = color_white,
-    label.colour = color_black,
-    con.colour = colorspace::lighten(color_black, 0.2),
-    colour = colorspace::lighten(color_black, 0.2),
-    con.cap = 12
+    y0 = 87,
+    x0 = 2018,
+    title = "Last movie rated 'G'"
   )
 
 

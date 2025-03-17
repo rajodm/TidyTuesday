@@ -11,8 +11,21 @@ tt <- tidytuesdayR::tt_load(2025, week = 10)
 pixar_films <- tt$pixar_films
 public_response <- tt$public_response
 
+# Inside Out 2 was released in 2024
+inside_out2 <- tibble(
+  number = 28,
+  film = "Inside Out 2",
+  year = 2024,
+  film_rating = "PG",
+  run_time = 97
+)
+
 data <- pixar_films |>
-  left_join(public_response, by = "film")
+  left_join(public_response, by = "film") |>
+  mutate(year = year(release_date)) |>
+  select(number, film, year, film_rating, run_time) |>
+  # add Inside Out 2 to the data
+  rbind(inside_out2)
 
 
 plot_data <- data |>
@@ -36,7 +49,6 @@ plot_data <- data |>
       film_rating %in% c("G", "PG") ~ film_rating,
       TRUE ~ "PG"
     ),
-    year = year(release_date),
     decade = (year %/% 10) * 10,
     # Needed for the segments for each decade
     decade_end = if_else(decade < max(decade), decade + 9.9, decade + 6),
@@ -114,14 +126,14 @@ p <- plot_data |>
     linewidth = 2.6,
     show.legend = FALSE
   ) +
-  geom_point(
-    aes(x = year, y = run_time, color = film_rating),
-    size = 4.8
-  ) +
   geom_segment(
     aes(x = decade, xend = decade_end),
     linewidth = 2.6,
     color = color_light_blue
+  ) +
+  geom_point(
+    aes(x = year, y = run_time, color = film_rating),
+    size = 4.8
   ) +
   scale_color_manual(
     values = c(

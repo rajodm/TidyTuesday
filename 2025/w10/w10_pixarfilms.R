@@ -237,9 +237,10 @@ final_plot <- p +
           run_time == min(run_time)
       ),
     aes(
-      x = year - 3,
+      x = decade_end - 0.5,
       y = avg_runtime,
-      y0 = 97,
+      x0 = 2005,
+      y0 = 86,
       label = "Average runtime per decade"
     ),
     colour = "transparent",

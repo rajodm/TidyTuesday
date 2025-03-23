@@ -75,12 +75,12 @@ color_white <- "#f8f4ed"
 labels <- c(
   "G" = glue::glue(
     "**G (General Audiences)**<br>",
-    "<span style='font-size:11pt'>All Ages Admitted<span>"
+    "<span style='font-size:11pt'>All Ages Admitted</span>"
   ),
   "PG" = glue::glue(
     "**PG (Parental Guidance Suggested)**<br>",
     "<span style='font-size:11pt'>Some Material May Not Be Suitable<span><br>",
-    "<span style='font-size:11pt'>for Children<span>"
+    "<span style='font-size:11pt'>for Children</span>"
   )
 )
 

@@ -58,7 +58,7 @@ showtext_opts(dpi = 300)
 
 # Texts ------------------------------------------------------------------
 
-plot_title <- "Amazon Repports Word Stream"
+plot_title <- "Word Frequency in Amazon Annual Reports"
 plot_subtitle <- "Proportional representation of frequent terms in Amazon's annual reports from 2005 to 2023"
 
 

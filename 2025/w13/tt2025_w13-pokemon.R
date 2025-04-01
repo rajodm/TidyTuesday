@@ -191,7 +191,7 @@ p <- att_data |>
     ),
     plot.caption.position = "plot",
     plot.caption = element_textbox_simple(
-      color = color_black,
+      color = color_light_black,
       halign = 1,
       size = 9,
       lineheight = 1.3,

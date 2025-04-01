@@ -202,9 +202,12 @@ p <- att_data |>
       size = 10,
       color = color_light_black
     ),
-    axis.text = element_text(color = color_light_black),
+    axis.text = element_text(
+      color = color_light_black,
+      family = "psp",
+      size = 9
+    ),
     axis.title.x = element_text(margin = margin(t = 10)),
-    axis.text.x = element_text(family = "psp", size = 9),
     plot.margin = margin(25, 25, 10, 25)
   )
 

@@ -71,11 +71,13 @@ label2 <- "**Moves classified** as physical or special<br>**based on the move\\'
 # Captions ---------------------------------------------------------------
 
 data <- glue::glue("**Data**: {{pokemon}} R package")
-chart <- glue::glue("<b>#TidyTuesday</b>: 2025 Week 13 | {data}")
+chart <- glue::glue(
+  "**#TidyTuesday**: 2025 Week 13 | **#30DayChartChallenge 2025, Day 2**: Comparisons - Slope"
+)
 bsky <- glue::glue("<span style='font-family:fa6-brands'>&#xe671;</span>")
 author <- glue::glue("**Graphic**: {bsky} @rajodm")
 
-caption_text <- glue::glue("{chart}<br>{author} | #rstats")
+caption_text <- glue::glue("{chart}<br>{data} | {author} | #rstats")
 
 # Plot -------------------------------------------------------------------
 
@@ -160,7 +162,7 @@ p <- att_data |>
     subtitle = subtitle,
     caption = caption_text,
     x = "Generation",
-    y = "Average Points"
+    y = "Average Attack Points"
   ) +
   coord_cartesian(
     clip = "off",

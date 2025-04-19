@@ -44,12 +44,10 @@ color_cap <- "#8d7a62"
 # Data -------------------------------------------------------------------
 # Penguins dataset from R v4.5.0
 summ <- penguins |>
-  filter(!is.na(body_mass), !is.na(sex)) |>
+  filter(!is.na(body_mass)) |>
   summarize(
     .by = c(island, species),
     avg_body_mass = median(body_mass, na.rm = TRUE),
-    male_count = sum(sex == "male", na.rm = TRUE),
-    female_count = sum(sex == "female", na.rm = TRUE),
     ttl = n()
   )
 

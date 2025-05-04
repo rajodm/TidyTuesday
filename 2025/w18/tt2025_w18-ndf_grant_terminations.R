@@ -7,11 +7,11 @@ library(showtext)
 
 # Data -------------------------------------------------------------------
 
-# grant <-
-# read_csv(here::here("project/tt2025_w18/data/nsf_terminations.csv"))
+grant <-
+  read_csv(here::here("project/tt2025_w18/data/nsf_terminations.csv"))
 
-tt <- tidytuesdayR::tt_load(2025, week = 18)
-grant <- tt$nsf_terminations
+# tt <- tidytuesdayR::tt_load(2025, week = 18)
+# grant <- tt$nsf_terminations
 
 grant_data <- grant |>
   mutate(
@@ -22,7 +22,7 @@ grant_data <- grant |>
 plot_data <- grant_data |>
   mutate(
     expected_end = case_when(
-      remaining_t_cut_short < 0 ~ "Elapsed",
+      remaining_t_cut_short < 0 ~ "Past expected end date",
       remaining_t_cut_short <= 30 ~ "up to 30 days",
       remaining_t_cut_short <= 100 ~ "up to 100 days",
       remaining_t_cut_short <= 365 ~ "up to 1 year",
@@ -32,7 +32,7 @@ plot_data <- grant_data |>
     expected_end = factor(
       expected_end,
       levels = c(
-        "Elapsed",
+        "Past expected end date",
         "up to 30 days",
         "up to 100 days",
         "up to 1 year",
@@ -49,6 +49,8 @@ plot_data <- grant_data |>
   ) |>
   arrange(expected_end)
 
+
+skimr::skim(grant_data$remaining_t_cut_short)
 # Fonts ------------------------------------------------------------------
 
 font_add(
@@ -63,13 +65,13 @@ font_add(
 )
 
 showtext_auto()
-showtext_opts(dpi = 300)
+showtext_opts(dpi = 600)
 
 # Texts ------------------------------------------------------------------
 
 # Caption
 data <- glue::glue(
-  "**Data**: National Sience Foundation Grant Terminations - Grant Watch"
+  "**Data**: National Science Foundation Grant Terminations - Grant Watch"
 )
 chart <- glue::glue(
   "**#TidyTuesday**: 2025 Week 18"
@@ -79,7 +81,7 @@ author <- glue::glue("**Graphic**: {bsky} @rajodm")
 caption_text <- glue::glue("{data}<br>{chart} | {author} | #rstats")
 
 # Texts
-subtitle <- "In April 2025, more than 1000 National Science Foundation Grants have been canceled."
+subtitle <- "Since April 18, 2025, the National Science Foundation terminated over 1,000 grants, affecting research initiatives at various stages of their projected timelines. This chart displays each canceled project as an individual square, with colors indicating the time remaining before expected completion."
 
 # Colors -----------------------------------------------------------------
 color_black <- "#1a1c23"
@@ -105,7 +107,7 @@ p <- plot_data |>
     caption = caption_text,
     x = "Directorate",
     y = "Count",
-    fill = "Time Remaining Before<br>Project Scheduled End"
+    fill = "Time remaining before<br>expected completion"
   ) +
   theme_minimal(base_size = 12, base_family = "roboto") +
   theme(
@@ -142,6 +144,7 @@ p <- plot_data |>
       color = color_gray,
       halign = 0.5,
       valign = 0.5,
+      size = 10,
       margin = margin(t = 24)
     ),
     plot.title.position = "plot",
@@ -179,5 +182,5 @@ ggsave(
   height = 21,
   width = 29.7,
   units = "cm",
-  dpi = 300
+  dpi = 600
 )

@@ -75,8 +75,8 @@ vesuvius_desc <- tibble(
   y = 0,
   label = glue::glue(
     "<span style = 'font-size: 14pt'>**Seismic Events at Mount Vesuvius**</span><br><br>",
-    "Mount Vesuvius is a **quiescent stratovolcano** located in **Campania, Italy**. Rising **1,281m above sea level**, its **last eruption occurred in 1944**. While showing no current eruptive activity, some ongoing seismic events indicate the volcano remains active beneath the surface<br><br>",
-    "From 2011 to 2024, over 12,000 seismic events were recorded at Mt. Vesuvius. These charts display epicenter locations across region, with colors indicating depth below surface and circle size representing duration magnitude (negative values indicating microearthquakes).<br><br>",
+    "Mount Vesuvius is a **quiescent stratovolcano** located in **Campania, Italy**. Rising **1,281m above sea level**, its **last eruption occurred in 1944**. While showing no current eruptive activity, some ongoing seismic events indicate that the volcano remains active beneath the surface.<br><br>",
+    "From 2011 to 2024, over 12,000 seismic events were recorded at Mt. Vesuvius. These charts display epicenter locations across the region, with colors indicating depth below surface and circle size representing duration magnitude (negative values indicating microearthquakes).<br><br>",
     "<span style = 'font-size: 8pt;'>{caption_text}</span>"
   )
 )

@@ -11,7 +11,10 @@ library(ggtext)
 library(showtext)
 
 # Data -------------------------------------------------------------------
-events <- read_csv(here::here("project/tt2025_w19/data/vesuvius.csv"))
+
+tt <- tidytuesdayR::tt_load(2025, week = 19)
+events <- tt$vesuvius
+
 italy <- ne_countries(scale = "large", country = "italy", returnclass = "sf")
 
 mt_vesuvius <- c(14.4260, 40.8219)
@@ -35,11 +38,7 @@ surface <- tibble(
 
 # Fonts ------------------------------------------------------------------
 
-font_add(
-  "roboto",
-  "fonts/Roboto-Regular.ttf",
-  "fonts/RobotoBold.ttf"
-)
+font_add_google("Roboto", "roboto")
 
 font_add(
   "fa6-brands",

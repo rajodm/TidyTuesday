@@ -128,7 +128,7 @@ map <- ggplot(bi_data) +
     linewidth = .08,
     show.legend = FALSE
   ) +
-  # There was 0 case reported in Eswatini
+  # There was 0 case reported in eSwatini
   geom_sf(
     data = map_data |>
       filter(country == "Eswatini"),
@@ -166,13 +166,13 @@ legend <- bi_legend(
   breaks = b_break,
   xlab = "Cases per 1M population",
   ylab = "Laboratory confirmation rate %",
-  base_family = "workS",
   size = 11,
+  # require dev. version of biscale
+  base_family = "workS"
 ) +
   theme(
     plot.background = element_rect(fill = color_white, color = NA),
-    panel.background = element_rect(fill = color_white, color = NA),
-    axis.text = element_text(family = "workS")
+    panel.background = element_rect(fill = color_white, color = NA)
   )
 
 # Custom funtion for the annotations
@@ -258,7 +258,7 @@ final_plot <- main_plot |>
     r_l = "r",
     hjust = 0,
     label = glue::glue(
-      "**Zero Cases** <span style='font-size: 10pt;'>(Eswatini)</span>"
+      "**Zero Cases** <span style='font-size: 10pt;'>(eSwatini)</span>"
     )
   ) |>
   add_custom_annotation(
@@ -304,7 +304,7 @@ final_plot <- main_plot |>
   )
 
 ggsave(
-  "2024_w25-measles.png",
+  "2025_w25-measles.png",
   final_plot,
   width = 29.7,
   height = 21,

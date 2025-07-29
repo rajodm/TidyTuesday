@@ -13,7 +13,7 @@ library(ggpattern)
 # Data -------------------------------------------------------------------
 
 tt <- tidytuesdayR::tt_load(2025, week = 25)
-cases_year <- tidytuesdayR::tt$cases_year
+cases_year <- tt$cases_year
 
 
 # map of the africa region

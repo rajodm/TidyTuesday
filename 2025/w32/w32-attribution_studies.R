@@ -150,15 +150,15 @@ plot <- sk_data |>
     plot.margin = margin(25, 25, 5, 25),
     axis.title = element_blank(),
     plot.subtitle = element_textbox_simple(
-      size = 12,
+      size = 14,
       color = "#6b7280",
       margin = margin(b = 25)
     ),
     axis.text.x = element_text(
-      color = color_cap,
+      color = "#374151",
       hjust = .05,
       family = ahn,
-      size = 11
+      size = 12
     ),
     plot.caption.position = "plot",
     plot.caption = element_textbox_simple(

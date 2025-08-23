@@ -1,7 +1,1 @@
-line-width = 80
-indent-width = 2
-indent-style = "space"
-persistent-line-breaks   = true
-exclude = []
-default-exclude = true
-skip = []
+format = { line-width = 80, indent-width = 2, indent-style = "space", persistent-line-breaks = true, default-exclude   = true, exclude   = [], skip   = []}

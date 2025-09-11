@@ -45,7 +45,7 @@ growth_data <-
   nest(data = !c(palm_subfamily, species_num)) |>
   # Reorder subfamilies by number of species
   arrange(desc(species_num)) |>
-  # Nest subfamilies and species so we can the number of species later
+  # Nest subfamilies and species so we can add the number of species later
   nest(subfamilies = !data)
 
 

@@ -126,7 +126,7 @@ p <- country_rank25 |>
 annotation_data <- tibble(
   visa_free_count = top50,
   region = "AFRICA",
-  label = "Median Global Mobility →\n(median = 70)"
+  label = glue::glue("Median Global Mobility →\n(median = {top50})")
 )
 
 top_countries <- tibble(

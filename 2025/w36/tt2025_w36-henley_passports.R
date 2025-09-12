@@ -34,6 +34,15 @@ country_rank25 <- country_rank |>
     code = str_to_lower(code)
   )
 
+#! I should probably use country_rank25 for this
+top10 <- quantile(country_rank$visa_free_count, .9) |>
+  as.numeric() |>
+  round() #172
+# top10 <- quantile(country_rank25$visa_free_count, .9) |>
+#   as.numeric() |>
+#   round() #186
+top50 <- quantile(country_rank$visa_free_count, .5) #70
+# top50 <- quantile(country_rank25$visa_free_count, .5) #94
 
 # Captions -------------------------------------------------------
 
@@ -62,11 +71,11 @@ p <- country_rank25 |>
     ),
     size = 10
   ) +
-  geom_vline(xintercept = 172, linewidth = .9, color = color_black) +
-  geom_vline(xintercept = 70, linewidth = .5, color = color_black) +
+  geom_vline(xintercept = top10, linewidth = .9, color = color_black) +
+  geom_vline(xintercept = top50, linewidth = .5, color = color_black) +
   scale_x_continuous(
-    breaks = c(50, 70, 100, 150, 172, 200),
-    expand = expansion(add = 20)
+    breaks = c(50, 100, 150, top10, 200),
+    expand = expansion(add = c(15, 35))
   ) +
   labs(
     title = "Passport Strength by World Region",
@@ -115,13 +124,13 @@ p <- country_rank25 |>
   )
 
 annotation_data <- tibble(
-  visa_free_count = 70,
+  visa_free_count = top50,
   region = "AFRICA",
   label = "Median Global Mobility →\n(median = 70)"
 )
 
 top_countries <- tibble(
-  visa_free_count = 172,
+  visa_free_count = top10,
   region = 'AFRICA',
   label = str_wrap("Passports with Highest Global Mobility", width = 14)
 )

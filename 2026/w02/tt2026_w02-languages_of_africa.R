@@ -48,7 +48,8 @@ set_theme(theme_void(paper = color_blue, ink = color_black))
 
 # Data -------------------------------------------------------------------
 
-africa <- read_csv(here::here("project/tt2026_w2/data/africa.csv"))
+tt <- tidytuesdayR::tt_load(2026, week = 2)
+africa <- tt$africa
 
 af_lang_fam <- africa |>
   summarize(

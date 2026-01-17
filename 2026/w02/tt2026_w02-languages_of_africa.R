@@ -87,13 +87,13 @@ bbox_proj <- bbox |>
   st_transform(crs = 27701) |>
   st_bbox()
 
-world_croped <- world_proj |>
+world_cropped <- world_proj |>
   st_crop(bbox_proj)
 
-non_af <- world_croped |>
+non_af <- world_cropped |>
   filter(region_un != "Africa")
 
-af <- world_croped |>
+af <- world_cropped |>
   filter(region_un == "Africa")
 
 congo_lang_fam <- af_lang_fam |>

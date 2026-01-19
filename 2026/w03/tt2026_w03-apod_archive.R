@@ -60,7 +60,7 @@ chart <- glue::glue(
 )
 
 source <- glue::glue(
-  "**source**: Astronomy Picture of the Day (APOD) Archive & Wikipedia for the annotations"
+  "**source**: NASA API | Astronomy Picture of the Day (APOD) Archive & Wikipedia for the annotations"
 )
 
 bsky <- glue::glue("<span style='font-family:fa7-brands'>&#xe671;</span>")

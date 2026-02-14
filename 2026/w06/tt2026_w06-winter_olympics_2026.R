@@ -6,7 +6,7 @@ library(ggtext)
 
 # Data -------------------------------------------------------------------
 
-tt <- tidytuesdayR::tt_load(2026, 5)
+tt <- tidytuesdayR::tt_load(2026, 6)
 schedule <- tt$schedule
 
 schedule_classified <- schedule |>

@@ -17,7 +17,8 @@ plot_data <-
   ) |>
   dplyr::summarize(
     .by = c(decade, programme_name),
-    distinct_program = dplyr::n()
+    distinct_program = dplyr::n(),
+    total_commitment = sum(current_total_commitment, na.rm = TRUE)
   )
 
 skim <- skimr::skim(sfi_grants)
@@ -49,7 +50,7 @@ caption_text <- glue::glue("{caption}<br>{chart} | {author} | #rstats")
 
 # Subtitle
 subtitle <- glue::glue(
-  "Science Foundation Ireland awarded {scales::number(nrow(sfi_grants), big.mark = ',')} grants between {format(skim$Date.min[1], '%B %Y')} and {format(skim$Date.max[1], '%B %Y')}. Grants are grouped by funding programmes; programmes with more than 150 grants are highlighted."
+  "Science Foundation Ireland awarded {scales::number(nrow(sfi_grants), big.mark = ',')} grants between {format(skim$Date.min[1], '%B %Y')} and {format(skim$Date.max[1], '%B %Y')}. Grants are grouped by funding programmes; programmes with more than 150 grants are highlighted. Point size reflects total funding committed."
 )
 
 # Plot -------------------------------------------------------------------
@@ -57,12 +58,19 @@ subtitle <- glue::glue(
 ggplot2::set_theme(ggplot2::theme_minimal(
   base_size = 12,
   base_family = "Atkinson Hyperlegible Next",
-  paper = "#f8f9fa",
-  ink = "#1a252f"
+  paper = color_paper,
+  ink = color_ink
 ))
 
 plot <- plot_data |>
   ggplot2::ggplot(ggplot2::aes(decade, distinct_program)) +
+  ggbeeswarm::geom_beeswarm(
+    aes(size = total_commitment),
+    shape = 21,
+    color = color_paper,
+    fill = color_ink,
+    stroke = .3
+  ) +
   ggrepel::geom_text_repel(
     data = plot_data |>
       dplyr::filter_out(distinct_program < 150),
@@ -74,10 +82,10 @@ plot <- plot_data |>
     size = 4.21,
     color = color_gray
   ) +
-  ggbeeswarm::geom_beeswarm(size = 2, color = "#1a252f") +
   ggplot2::labs(
     x = "Decades",
     title = "Science Foundation Ireland: Evolving Grant Programmes Across the 2000s, 2010s, and 2020s",
+    size = stringr::str_wrap("Total funding committed", 18),
     subtitle = subtitle,
     caption = caption_text
   ) +
@@ -91,6 +99,12 @@ plot <- plot_data |>
       stringr::str_wrap("800 grants awarded", 12)
     )
   ) +
+  ggplot2::scale_size_continuous(
+    labels = scales::number_format(
+      suffix = " €",
+      scale_cut = scales::cut_short_scale()
+    )
+  ) +
   ggplot2::theme_sub_axis(
     text = ggplot2::element_text(size = 11, color = color_gray1),
     title = ggplot2::element_text(size = 12, color = color_gray)
@@ -100,15 +114,15 @@ plot <- plot_data |>
     title.position = "plot",
     title = ggtext::element_textbox_simple(
       size = 24,
-      lineheight = 1.2,
-      width = ggplot2::unit(8.19, "in"),
+      lineheight = 1.1,
+      width = ggplot2::unit(9.35, "in"),
       hjust = 0,
       face = "bold",
       margin = ggplot2::margin(b = 6)
     ),
     subtitle = ggtext::element_textbox_simple(
       size = 12,
-      width = ggplot2::unit(8.5, "in"),
+      width = ggplot2::unit(9.94, "in"),
       hjust = 0,
       color = color_gray,
       margin = ggplot2::margin(b = 14)
@@ -121,6 +135,12 @@ plot <- plot_data |>
       halign = 1
     ),
     margin = ggplot2::margin(25, 25, 10, 25),
+  ) +
+  ggplot2::theme_sub_legend(
+    position = "inside",
+    position.inside = c(.92, .9),
+    title = ggplot2::element_text(size = 12, face = "bold"),
+    text = ggplot2::element_text(size = 11, color = color_gray)
   )
 
 

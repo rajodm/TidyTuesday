@@ -10,7 +10,6 @@ library(systemfonts)
 tt <- tidytuesdayR::tt_load(2026, 8)
 body_condition <- tt$tortoise_body_condition_cleaned
 
-
 tortoises_sr <- body_condition |>
   dplyr::distinct(individual, year, locality, sex) |>
   dplyr::count(year, locality, sex) |>
@@ -81,7 +80,7 @@ caption_text <- glue::glue("{caption}<br>{chart} | {author} | #rstats")
 
 chart_title <- "Hermann's Tortoise Sex Ratios Vary Strongly Across Three Locations on Golem Grad Island, with the Plateau Remaining Heavily Male-Biased"
 
-chart_subtitle <- "Sixteen years of capture-recapture data on Hermann's tortoises on Golem Grad island reveal a striking imbalance. Values above the dark dashed line indicate more males than females; the y-axis is on a log scale."
+chart_subtitle <- "Sixteen years of capture-recapture data on Hermann's tortoises on Golem Grad island, Lake Prespa in North Macedonia reveal a striking imbalance. Values above the dark dashed line indicate more males than females; the y-axis is on a log scale."
 # Plot -------------------------------------------------------------------
 
 ggplot2::set_theme(ggplot2::theme_minimal(

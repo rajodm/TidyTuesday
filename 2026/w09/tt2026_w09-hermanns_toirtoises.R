@@ -7,7 +7,7 @@ library(systemfonts)
 
 # Data -------------------------------------------------------------------
 
-tt <- tidytuesdayR::tt_load(2026, 8)
+tt <- tidytuesdayR::tt_load(2026, 9)
 body_condition <- tt$tortoise_body_condition_cleaned
 
 tortoises_sr <- body_condition |>

@@ -95,7 +95,10 @@ col_green <- "#b1a1cc"
 col_orange <- "#B24422"
 col_yellow <- "#59386c"
 
-caption_text <- generate_caption("Castlemap, curated from Wikidata", 35) |>
+caption_text <- generate_caption(
+  "Castlemap, curated from Wikidata | Base map: GISCO NUTS 2024 via {giscoR}",
+  35
+) |>
   stringr::str_replace_all("<br>", "\n") |>
   stringr::str_remove_all("\\*")
 

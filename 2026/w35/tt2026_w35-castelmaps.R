@@ -10,6 +10,9 @@ library(tmap)
 source(here::here("cap_func.R"))
 tmap_options(component.autoscale = FALSE)
 
+systemfonts::require_font("Atkinson Hyperlegible Next")
+systemfonts::require_font("Recursive Casual")
+
 # Data -------------------------------------------------------------------
 
 tt <- tidytuesdayR::tt_load(2026, week = 35)
@@ -253,7 +256,7 @@ tm <- tm_shape(map_base_fr_metrop) +
 
 tmap_save(
   tm,
-  "tt/2026/w35/2026_w35-castelmaps.png",
+  "2026/w35/2026_w35-castelmaps.png",
   device = ragg::agg_png,
   width = 25,
   height = 21,

@@ -168,7 +168,7 @@ p <- plot_data |>
     title = title_text,
     subtitle = subtitle_text,
     caption = caption_text,
-    x = "Average Share of Green Area in Urban Areas\n"
+    x = "Average Share of Green Area\n"
   ) +
   scale_x_continuous(
     labels = scales::percent_format(scale = 1),

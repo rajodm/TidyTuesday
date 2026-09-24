@@ -50,6 +50,9 @@ col_ink <- "#e6e6e4"
 col_paper <- "#171717"
 col_red <- "#C93312"
 
+systemfonts::require_font("Atkinson Hyperlegible Next")
+systemfonts::require_font("Atkinson Hyperlegible Mono")
+
 title_text <- "African Cities Are Losing Their Green Space"
 
 subtitle_text <- "Green space proportion fell decade over decade, and green-rich cities became far less common"
@@ -82,8 +85,8 @@ mgnf_from <- list(
 mgnf_to <- list(
   xmin = 25,
   xmax = 80,
-  ymin = -30,
-  ymax = -90
+  ymin = -10,
+  ymax = -40
 )
 
 vgrids_pos <- tibble(x_val = seq(0, 80, 20))
@@ -116,7 +119,8 @@ p <- plot_data |>
   ) +
   geom_histogram(
     aes(fill = year),
-    binwidth = 2.5
+    binwidth = 2.5,
+    position = "identity"
   ) +
   geom_segment(
     data = median_ga_share,
@@ -175,8 +179,8 @@ p <- plot_data |>
     position = "top"
   ) +
   scale_y_continuous(
-    limits = c(210, -100),
-    breaks = seq(0, 200, 50),
+    limits = c(70, -45),
+    breaks = seq(0, 100, 25),
     labels = \(x) {
       if_else(x != 0, stringr::str_c(x, "\ncities"), as.character(x))
     }
@@ -185,7 +189,7 @@ p <- plot_data |>
   annotate(
     "richtext",
     x = 8,
-    y = 200,
+    y = Inf,
     label = annotation1,
     color = col_paper,
     fill = col_ink,
@@ -201,7 +205,7 @@ p <- plot_data |>
   annotate(
     "richtext",
     x = mean(c(mgnf_from$xmin, mgnf_from$xmax)) * 0.618,
-    y = mgnf_from$ymax + 20,
+    y = mgnf_from$ymax + 7,
     label = stringr::str_wrap(
       annotation2,
       38
@@ -261,7 +265,7 @@ p <- plot_data |>
 
 ggh4x::save_plot(
   plot = p,
-  "2026/w38/2026_w38-green_african_cities.png",
+  "2026/w38/2026_w38_updated-green_african_cities.png",
   width = 21,
   height = 25,
   units = "cm"
